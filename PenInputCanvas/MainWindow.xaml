@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:PenInputCanvas"
         mc:Ignorable="d"
         Title="SymDraw" Height="800" Width="1200">
@@ -14,7 +15,7 @@
 
     <Border Grid.Row="0" Grid.RowSpan="2">
 
-      <local:CustomInkCanvas  x:Name="theInkCanvas" EditingMode="Ink"  Background="#1F1F1F">
+      <local:CustomInkCanvas  x:Name="theInkCanvas" EditingMode="Ink"  Background="#1F1F1F" LiveRender="True">
         <!--Background="#1F1F1F">-->
           <InkCanvas.DefaultDrawingAttributes >
             <DrawingAttributes
@@ -28,12 +29,15 @@
       
     </Canvas>
 
+    
 
-
-    <StackPanel Orientation="Horizontal">
-      <Button Name="SaveButton" Margin="10" Padding="10" FontSize="20" Click="SaveButton_Click">SAVE</Button>
-      <ToggleButton Margin="10" IsChecked="{Binding ElementName=theInkCanvas, Path=LiveRender}" Padding="10"> Live Render</ToggleButton>
-      <Button  Name="ClearButton" Padding="5" Margin="10" FontSize="24" Width="110" Click="CearButton_Click">CLEAR</Button>
+      <StackPanel Orientation="Horizontal">
+      <Button Name="SaveButton" Margin="10" Padding="10" FontSize="20" Click="SaveButton_Click">
+        <fa:ImageAwesome Icon="Save"/>
+      </Button>
+      <Button  Name="ClearButton" Padding="10" Margin="10" FontSize="24" Click="CearButton_Click">
+        <fa:ImageAwesome Icon="TrashOutline"/>
+      </Button>
       <Slider Orientation="Horizontal" Maximum="5" Value="{Binding ElementName=theInkCanvas, Path=Multiplier}" Width="300" VerticalAlignment="Center" IsSnapToTickEnabled="True" Padding="10" TickFrequency="1"></Slider>
       
     </StackPanel>

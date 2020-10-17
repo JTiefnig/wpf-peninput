@@ -30,6 +30,8 @@ namespace PenInputCanvas
             DataContext = this;
 
             var inkDA =   this.theInkCanvas.DefaultDrawingAttributes;
+
+           
         }
 
   

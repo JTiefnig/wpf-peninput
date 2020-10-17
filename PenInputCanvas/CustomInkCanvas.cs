@@ -170,8 +170,6 @@ namespace PenInputCanvas
         }
 
 
-
-
         public void SaveToBitmap(String file)
         {
             RenderTargetBitmap rtb = new RenderTargetBitmap((int)this.ActualWidth, (int)this.ActualHeight, 96d, 96d, PixelFormats.Default);
@@ -185,8 +183,6 @@ namespace PenInputCanvas
             }
                
         }
-
-
 
 
         protected override void OnRender(DrawingContext drawingContext)
