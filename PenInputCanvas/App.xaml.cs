@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+using PenInputCanvas.ViewModel;
+
 namespace PenInputCanvas
 {
     /// <summary>
@@ -13,5 +15,18 @@ namespace PenInputCanvas
     /// </summary>
     public partial class App : Application
     {
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            var app = new AppViewModel(); // possible to pass in arguments herer...
+
+            var win = new MainWindow(app);
+
+            win.Show();
+        }
+
+
     }
 }

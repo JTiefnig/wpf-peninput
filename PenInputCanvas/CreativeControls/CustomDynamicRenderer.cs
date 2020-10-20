@@ -9,7 +9,7 @@ using System.Windows.Input;
 using System.Windows.Input.StylusPlugIns;
 using System.Windows.Media;
 
-namespace PenInputCanvas
+namespace PenInputCanvas.CreativeControls
 {
     class CustomDynamicRenderer : DynamicRenderer
     {
@@ -40,26 +40,12 @@ namespace PenInputCanvas
                                        StylusPointCollection stylusPoints,
                                        Geometry geometry, Brush fillBrush)
         {
-
-
-            //var pointcol = new PointCollection()
-            //{
-
-            //}
-
-
-            //var poy = new PolyBezierSegment() { Points =  };
-
-
-
             var str = new Stroke(stylusPoints);
 
             var mat = new Matrix();
 
             int teiler = (int)Math.Pow(2, InkCanvas.Multiplier);
 
-            
-            
             str.Draw(drawingContext, this.DrawingAttributes);
 
             if (!InkCanvas.LiveRender)
@@ -76,18 +62,14 @@ namespace PenInputCanvas
                 mat.RotateAt(360.0 / teiler, cx, cy);
                 str = str.Clone();
                 str.Transform(mat, false);
-
                 str.Draw(drawingContext, this.DrawingAttributes);
             }
-
 
 
             str = str.Clone();
             mat.ScaleAt(-1, 1, cx, cy);
             str.Transform(mat, false);
             str.Draw(drawingContext, this.DrawingAttributes);
-            
-
 
             mat = new Matrix();
 

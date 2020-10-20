@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Ink;
 using Microsoft.Win32;
+using PenInputCanvas.ViewModel;
 
 namespace PenInputCanvas
 {
@@ -23,31 +24,13 @@ namespace PenInputCanvas
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(AppViewModel VM)
         {
             InitializeComponent();
 
-            DataContext = this;
-
-            var inkDA =   this.theInkCanvas.DefaultDrawingAttributes;
-
-           
-        }
-
-  
-        private void CearButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.theInkCanvas.Strokes.Clear();
-         }
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Bitmap (*.bmp)|*.bmp";
-            if (saveFileDialog.ShowDialog() == true)
-                this.theInkCanvas.SaveToBitmap(saveFileDialog.FileName);
+            this.DataContext = VM;
 
         }
+
     }
 }

@@ -13,7 +13,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.IO;
 
-namespace PenInputCanvas
+
+
+namespace PenInputCanvas.CreativeControls
 {
     public class CustomInkCanvas : InkCanvas
     {
@@ -30,11 +32,17 @@ namespace PenInputCanvas
 
 
 
+        /// <summary>
+        /// Centerpoint of the UI Element
+        /// </summary>
         public double cx { get; set; }
         public double cy { get; set; }
 
 
-        public bool LiveRender { get; set; } = false;
+        /// <summary>
+        /// If true strokes are renderd live around the centerpoint
+        /// </summary>
+        public bool LiveRender { get; set; }
 
 
         private int _multiplier = 3;
@@ -50,15 +58,40 @@ namespace PenInputCanvas
         }
 
 
+
+
+        public static readonly DependencyProperty ZoomProperty =
+        DependencyProperty.Register(nameof(Zoom),
+        typeof(double),
+        typeof(CustomInkCanvas),
+        new FrameworkPropertyMetadata(0.0, new PropertyChangedCallback(ZoomPropertyChanged)));
+
+        public double Zoom
+        {
+            get => (double)GetValue(ZoomProperty);
+            set
+            {
+                SetValue(ZoomProperty, value);
+            }
+        }
+
+        public static void ZoomPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+            var inkcanv = d as CustomInkCanvas;
+
+            // do something with it
+        }
+
+
+
+
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             base.OnRenderSizeChanged(sizeInfo);
 
-
             var oldcx = cx;
             var oldcy = cy;
-
-
 
             cx = this.ActualWidth / 2;
             cy = this.ActualHeight / 2;
@@ -71,8 +104,6 @@ namespace PenInputCanvas
             {
                 str.Transform(mat, false);
             }
-
-
             this.UpdateDeviderLines();
         }
 
@@ -80,13 +111,9 @@ namespace PenInputCanvas
         {
             base.OnStrokeCollected(e);
 
-            
-
             var ns = e.Stroke;
 
             var mat = new Matrix();
-
-
 
             int teiler = (int)Math.Pow(2, this.Multiplier);
 
@@ -104,7 +131,6 @@ namespace PenInputCanvas
 
                 this.Strokes.Add(ns);
             }
-
 
 
             ns = ns.Clone();
@@ -161,11 +187,7 @@ namespace PenInputCanvas
 
 
                 this.Children.Add(line);
-
-
             }
-
-
 
         }
 

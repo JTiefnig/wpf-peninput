@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:PenInputCanvas"
+        xmlns:ctrl="clr-namespace:PenInputCanvas.CreativeControls"
         mc:Ignorable="d"
         Title="SymDraw" Height="800" Width="1200">
     <Grid>
@@ -14,32 +15,22 @@
     </Grid.RowDefinitions>
 
     <Border Grid.Row="0" Grid.RowSpan="2">
-
-      <local:CustomInkCanvas  x:Name="theInkCanvas" EditingMode="Ink"  Background="#1F1F1F" LiveRender="True">
-        <!--Background="#1F1F1F">-->
-          <InkCanvas.DefaultDrawingAttributes >
-            <DrawingAttributes
-         Color = "White" Width = "6" />
-          </InkCanvas.DefaultDrawingAttributes>
-        </local:CustomInkCanvas>
-      
+      <ctrl:CustomInkCanvas x:Name="theInkCanvas" EditingMode="Ink" Background="#1F1F1F" LiveRender="True">
+        <InkCanvas.DefaultDrawingAttributes >
+          <DrawingAttributes Color = "White" Width = "6" />
+        </InkCanvas.DefaultDrawingAttributes>
+      </ctrl:CustomInkCanvas>
     </Border>
 
-    <Canvas Grid.RowSpan="2" Name="OverlayCanvas">
-      
-    </Canvas>
 
-    
-
-      <StackPanel Orientation="Horizontal">
-      <Button Name="SaveButton" Margin="10" Padding="10" FontSize="20" Click="SaveButton_Click">
+    <StackPanel Orientation="Horizontal">
+      <Button Name="SaveButton" Margin="10" Padding="10" FontSize="20" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=theInkCanvas}" >
         <fa:ImageAwesome Icon="Save"/>
       </Button>
-      <Button  Name="ClearButton" Padding="10" Margin="10" FontSize="24" Click="CearButton_Click">
+      <Button  Name="ClearButton" Padding="10" Margin="10" FontSize="24" Command="{Binding NewCanvasCommand}" CommandParameter="{Binding ElementName=theInkCanvas}">
         <fa:ImageAwesome Icon="TrashOutline"/>
       </Button>
-      <Slider Orientation="Horizontal" Maximum="5" Value="{Binding ElementName=theInkCanvas, Path=Multiplier}" Width="300" VerticalAlignment="Center" IsSnapToTickEnabled="True" Padding="10" TickFrequency="1"></Slider>
-      
+      <!--<ctrl:ExponentSlider Value="{Binding Mode=TwoWay}" Width="300"/>-->
     </StackPanel>
 
 
