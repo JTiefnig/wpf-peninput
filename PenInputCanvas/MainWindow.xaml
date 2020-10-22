@@ -30,7 +30,7 @@
       <Button  Name="ClearButton" Padding="10" Margin="10" FontSize="24" Command="{Binding NewCanvasCommand}" CommandParameter="{Binding ElementName=theInkCanvas}">
         <fa:ImageAwesome Icon="TrashOutline"/>
       </Button>
-      <!--<ctrl:ExponentSlider Value="{Binding Mode=TwoWay}" Width="300"/>-->
+      <ctrl:ExponentSlider Value="{Binding ElementName=theInkCanvas, Path=Multiplier, Mode=TwoWay}" Width="300"/>
     </StackPanel>
 
 

@@ -13,26 +13,21 @@
       <RowDefinition Height="50"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-
-    <Border x:Name="SliderBar" Grid.Row="1" CornerRadius="20" >
-      
+    
+    <Border x:Name="SliderBar" Grid.Row="1" CornerRadius="20">
+      <Border.InputBindings>
+        <MouseBinding />
+      </Border.InputBindings>
       <Border.Background>
         <SolidColorBrush Opacity=".8" Color="White"/>
       </Border.Background>
       <ItemsControl VerticalAlignment="Stretch" x:Name="SliderBarItemContainer">
         <ItemsControl.ItemContainerStyle>
-          <Style TargetType="Button">
+          <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="FrameworkElement.Margin" Value="1"/>
-            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-            <Setter Property="Template">
-              <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                  <ContentPresenter />
-                </ControlTemplate>
-              </Setter.Value>
-            </Setter>
+            <Setter Property="TextAlignment" Value="Center"/>
           </Style>
         </ItemsControl.ItemContainerStyle>
         <ItemsControl.ItemsPanel>
@@ -45,6 +40,7 @@
       </ItemsControl>
     </Border>
 
+    <!--The Slider Button-->
     <Border
       x:Name="Slider"
       Grid.Row="0"
@@ -55,21 +51,24 @@
       CornerRadius="10"
       BorderThickness="2"
       BorderBrush="Gray">
+      <Border.RenderTransform>
+        <TranslateTransform x:Name="SliderPositionTransform">
+          
+        </TranslateTransform>
+      </Border.RenderTransform>
 
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="2*"/>
-          <RowDefinition Height="2*"/>
+          <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-
-        
-
-        <TextBlock HorizontalAlignment="Center" Margin="0" Name="ExpontentText" Grid.Column="1" FontSize="15" VerticalAlignment="Bottom"></TextBlock>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0" Grid.Row="1" FontSize="20">2</TextBlock>
+        <!--Text within the Slider Button... -->
+        <TextBlock HorizontalAlignment="Center" Margin="-15 0 0 -10" Name="ExpontentText" Grid.Column="1" FontSize="20" VerticalAlignment="Bottom">t</TextBlock>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0 -10 -15 0" Grid.Row="1" FontSize="30">2</TextBlock>
       </Grid>
     </Border>
 
