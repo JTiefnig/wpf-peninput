@@ -36,17 +36,21 @@ namespace PenInputCanvas.CreativeControls
                 this.SetValue(e.GetPosition(sender as UIElement).X);
 
 
-            this.Slider.TouchDown += new EventHandler<TouchEventArgs>(
+            this.SliderBar.TouchDown += new EventHandler<TouchEventArgs>(
                 (object sender, TouchEventArgs e) => this.SetValue(e.GetTouchPoint(sender as UIElement).Position.X)
                 );
 
 
             this.Slider.TouchDown += new EventHandler<TouchEventArgs>((object sender, TouchEventArgs e) => this.isDragging = true);
-            this.Slider.TouchMove += new EventHandler<TouchEventArgs>((object sender, TouchEventArgs e) => 
+                
+            var touchmove  = new EventHandler<TouchEventArgs>((object sender, TouchEventArgs e) => 
             {
                 if (isDragging)
                     this.SetValue(e.GetTouchPoint(this.SliderBar).Position.X);
             });
+
+            this.Slider.TouchMove += touchmove;
+            this.SliderBar.TouchMove += touchmove;
 
             this.Slider.TouchUp += new EventHandler<TouchEventArgs>((object sender, TouchEventArgs e) => this.isDragging = false);
 
@@ -126,17 +130,21 @@ namespace PenInputCanvas.CreativeControls
             var maxmove = this.SliderBar.ActualWidth;
             var screenpos = (maxmove * (((double)this.Value - 0.5) / MaximumExponent - 0.5));
             
-            // Setup Animation
-            DoubleAnimation doubleAnimation1 = new DoubleAnimation();
-            doubleAnimation1.Duration = new Duration(TimeSpan.FromMilliseconds(100));
-            doubleAnimation1.From = SliderPositionTransform.X;
-            doubleAnimation1.To = screenpos;
+           
+
+            DoubleAnimationUsingKeyFrames animation = new DoubleAnimationUsingKeyFrames();
+            animation.KeyFrames.Add(
+                new SplineDoubleKeyFrame(
+                    screenpos, // Target value (KeyValue)
+                    KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(400)), // KeyTime
+                    new KeySpline(0.1, 0.9, 0.2, 1) // KeySpline
+                    ));
 
             // end Animation after set duration
-            doubleAnimation1.FillBehavior = FillBehavior.Stop;
+            animation.FillBehavior = FillBehavior.Stop;
 
             // start animation
-            this.SliderPositionTransform.BeginAnimation(TranslateTransform.XProperty, doubleAnimation1);
+            this.SliderPositionTransform.BeginAnimation(TranslateTransform.XProperty, animation);
 
             // Explicitly set position after animation is finished
             SliderPositionTransform.X = screenpos;
